@@ -3,21 +3,15 @@
 $token = "7635377723:AAHSkcwun__eevjRw4R9619Xxq0zgAlFpZ8";   // Вставь сюда свой токен от BotFather
 $chat_id = "-4882509132"; // Вставь сюда свой chat_id из getUpdates
 
-// === ТЕКСТ СООБЩЕНИЯ ===
-$message = "📲 Новый скачавший приложение TowerRush.apk!";
-
-// === ОТПРАВКА В TELEGRAM ===
-$telegram_url = "https://api.telegram.org/bot$token/sendMessage";
-$params = [
+$message = "📲 Кто-то скачал TowerRush.apk!";
+file_get_contents("https://api.telegram.org/bot7635377723:AAHSkcwun__eevjRw4R9619Xxq0zgAlFpZ8/sendMessage?" . http_build_query([
     "chat_id" => $chat_id,
-    "text" => $message,
-    "parse_mode" => "HTML"
-];
+    "text" => $message
+]));
 
-file_get_contents($telegram_url . "?" . http_build_query($params));
+// === Отдача apk файла ===
+$file = __DIR__ . "/TowerRush.apk";
 
-// === ОТДАЧА ФАЙЛА ПОЛЬЗОВАТЕЛЮ ===
-$file = "TowerRush.apk"; // убедись, что файл лежит рядом с этим скриптом
 if (file_exists($file)) {
     header("Content-Type: application/vnd.android.package-archive");
     header("Content-Disposition: attachment; filename=" . basename($file));
